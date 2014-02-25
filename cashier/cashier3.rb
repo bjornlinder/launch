@@ -1,7 +1,7 @@
 require 'csv'
 require 'pry'
 require 'date'
-
+#Repository at https://github.com/bjornlinder/launch/blob/master/cashier/cashier3.rb
 def prompt(output)
   puts "#{output}"
   gets.chomp
