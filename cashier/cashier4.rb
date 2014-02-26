@@ -39,7 +39,7 @@ end
 
 def wrong(bool)
   puts "You lose. Would you like to try again?"
-  bool ? first_input : true
+  bool ? initialize() : true
 end
   
 def ordering(selection, order)
@@ -83,11 +83,11 @@ def report_sales_data_to_boss_person
   	total_sales=0
   	total_profit=0
   	sales_by_date.each_with_index do |x, i|
-  		revenue=@products[i][2]*x
+  		revenue=@products[i][2]
   		total_sales+=revenue
-  		profit=revenue-@products[i][3]*x
+  		profit=x*(revenue-@products[i][3])
   		total_profit+=profit
-  		puts "SKU: #{@products[i][1]}, Name: #{@products[i][0]}, Quantity: #{x}, Revenue: #{format_currency(revenue)}, Profit: #{format_currency(profit)}" if x!=0
+  		puts "SKU: #{@products[i][1]}, Name: #{@products[i][0]}, Quantity: #{x}, Revenue: #{format_currency(revenue)}, Profit: #{format_currency(profit)}" if i!=0
   	end
   	puts "\nTotal Sales: #{format_currency(total_sales)}"
   	puts "Total Profit: #{format_currency(total_profit)}"
@@ -114,4 +114,14 @@ end
 
 def subtotal(array) array.each_with_index.inject(0) { |subtotal, (quantity, i)| subtotal + quantity*@products[i][2]} end
 
-first_input
+  def initialize
+    selection=prompt("Make a selection").to_i
+    if selection==5
+      report_sales_data_to_boss_person()
+    elsif (1..3).include?(selection)
+      order_array = Array.new(3,0)
+      order=ordering(selection,order_array)
+    else wrong(true)
+    end
+    return order
+  end
