@@ -1,0 +1,3 @@
+def win?
+  
+end
